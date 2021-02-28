@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <variable
-            name="name"
-            type="" />
+<!--        <variable-->
+<!--            name="name"-->
+<!--            type="" />-->
     </data>
     <FrameLayout
         android:layout_width="match_parent"
@@ -72,8 +72,15 @@
                     </androidx.appcompat.widget.Toolbar>
                 </com.google.android.material.appbar.AppBarLayout>
             </LinearLayout>
+            <FrameLayout
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/bottomnavigation"
+                android:layout_below="@+id/toolbar"/>
 
             <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottomnavigation"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_alignParentBottom="true"
