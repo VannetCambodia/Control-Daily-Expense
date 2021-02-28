@@ -2,7 +2,10 @@ package com.offtline.controldailypayment
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.MenuItem
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -12,30 +15,32 @@ import com.offtline.controldailypayment.databinding.ActivityMainBinding
 import java.io.DataOutputStream
 
 class MainActivity : AppCompatActivity() {
-    var binding:ActivityMainBinding = DataBindingUtil.setContentView(this,R.layout.activity_main)
+    lateinit var binding:ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
+        binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
 
-        binding.bottomnavigation.setOnNavigationItemReselectedListener {
-            BottomNavigationView.OnNavigationItemSelectedListener { 
-                when(it.itemId){
-                    R.id.dashboard->{
-                        Toast.makeText(applicationContext,"Dashboard",Toast.LENGTH_SHORT).show()
-                        return@OnNavigationItemSelectedListener true
-                    }
-                    R.id.home->{
-                        Toast.makeText(applicationContext,"Home",Toast.LENGTH_SHORT).show()
-                        return@OnNavigationItemSelectedListener true
-                    }
-                    R.id.report->{
-                        Toast.makeText(applicationContext,"Report",Toast.LENGTH_SHORT).show()
-                        return@OnNavigationItemSelectedListener true
-                    }
-                }
-                false
+        binding.title.text = applicationContext.getString(R.string.home)
+        binding.bottomnavigation.setOnNavigationItemSelectedListener(mBottomNavigationView)
+    }
+
+    private val mBottomNavigationView = BottomNavigationView.OnNavigationItemSelectedListener {item: MenuItem ->
+        when(item.itemId){
+            R.id.dashboard->{
+                binding.title.text = applicationContext.getString(R.string.dashboard)
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.home->{
+                binding.title.text = applicationContext.getString(R.string.home)
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.report->{
+                binding.title.text = applicationContext.getString(R.string.Report)
+                return@OnNavigationItemSelectedListener true
             }
         }
+        false
     }
 
     fun open_navigation(view: View) {
@@ -49,3 +54,4 @@ class MainActivity : AppCompatActivity() {
         transaction.commit()
     }
 }
+
